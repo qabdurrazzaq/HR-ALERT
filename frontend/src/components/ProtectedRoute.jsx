@@ -4,18 +4,18 @@ import api from '../api'
 import { REFRESH_TOKEN , ACCESS_TOKEN } from '../constants'
 import { useState , useEffect } from 'react'
 
-function ProtectedRoute((children)) {
+function ProtectedRoute({ children }) {
     const [isAuthorised, setAuthorised] = useState(null);
 
     useEffect(() => {
-        auth().catch() => setAuthorised(false)
+        auth().catch(() => setAuthorised(false))
     }, [])
 
     const refreshToken = async() => {
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
         try {
             const res = await api.post("/auth/token/refresh", {
-                refresh: refreshToken;
+                refresh: refreshToken,
             });
             if(res.status === 200){
                 localStorage.setItem(ACCESS_TOKEN, res.data.access)
@@ -30,7 +30,7 @@ function ProtectedRoute((children)) {
     }
 
     const auth = async() => {
-        token = localStorage.getItem(ACCESS_TOKEN);
+        const token = localStorage.getItem(ACCESS_TOKEN);
         if(token){
             const decoded = jwtDecode(token);
             const tokenExpiration = decoded.exp;

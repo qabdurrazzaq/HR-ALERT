@@ -10,6 +10,6 @@ urlpatterns = [
     path("auth/user/register/", CreateUserView.as_view(), name="register"),
     path("auth/token/", TokenObtainPairView.as_view(), name="get_token"),
     path("auth/token/refresh/", TokenRefreshView.as_view(), name="refresh_token"),
-    path("admin_auth/", include("rest_framework.urls")),
+    path("admin-auth/", include("rest_framework.urls")),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
